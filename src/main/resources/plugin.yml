@@ -1,31 +1,31 @@
 name: AutoUpdatePlugins
-main: com.github.weikkadd.pddss.Main
-version: 1.0.0
+main: spigot.SpigotUpdate
+version: 12.2.0
 api-version: 1.18
-description: Automatically update Spigot/Paper/Folia/BungeeCord/Velocity plugins
-author: weikkadd
-url: https://github.com/weikkadd/pddss
+description: 自动更新 Spigot/Paper/Folia/BungeeCord/Velocity 插件
+author: NewAmazingPVP
+url: https://github.com/NewAmazingPVP/AutoUpdatePlugins
 softdepend: [Vault, PlaceholderAPI]
 
 commands:
   update:
-    description: Update all plugins from list.yml
+    description: 从 list.yml 更新所有插件
     usage: /update
     permission: autoupdateplugins.update
     aliases: [autoupdate, au]
   aup:
-    description: Manage AutoUpdatePlugins
+    description: 管理 AutoUpdatePlugins
     usage: /aup
     permission: autoupdateplugins.manage
     aliases: [autoupdatesettings, aus]
 
 permissions:
   autoupdateplugins.update:
-    description: Allows updating plugins
+    description: 允许更新插件
     default: op
   autoupdateplugins.manage:
-    description: Allows managing plugin list
+    description: 允许管理插件列表
     default: op
   autoupdateplugins.notify:
-    description: Receive update notifications
+    description: 接收更新通知
     default: true
