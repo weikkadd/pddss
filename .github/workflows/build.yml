@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -27,7 +27,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AutoUpdatePlugins-jar
+          name: autoupdateplugins-jar
           path: target/*.jar
 
       - name: Create Release
@@ -36,3 +36,4 @@ jobs:
         with:
           files: target/*.jar
           generate_release_notes: true
+          fail_on_unmatched_files: true
