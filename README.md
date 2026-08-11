@@ -1,69 +1,71 @@
-# AutoUpdatePlugins Analysis
+# AutoUpdatePlugins
 
-Minecraft Spigot/Folia 插件 `autoupdateplugins-12.0.1.jar` 的反编译分析和代码结构研究。
+[![Build](https://github.com/weikkadd/pddss/actions/workflows/build.yml/badge.svg)](https://github.com/weikkadd/pddss/actions/workflows/build.yml)
+[![Release](https://img.shields.io/github/v/release/weikkadd/pddss)](https://github.com/weikkadd/pddss/releases)
+[![License: MIT](https://img.shields.io/github/license/weikkadd/pddss)](LICENSE)
 
-## 项目概述
+Automatically update any Spigot/Paper/Folia/BungeeCord/Velocity plugin you wish!
 
-**AutoUpdatePlugins** 是一个自动更新 Spigot/Folia 插件的 Minecraft 服务器插件。
+## Features
 
-- **作者**: NewAmazingPVP
-- **版本**: 12.0.1
-- **Java 版本**: 17
-- **构建时间**: 2026-08-10 03:25:35 UTC
-- **GitHub**: https://github.com/weikkadd/pddss
+- **One list, many sources** - Pull updates from GitHub Releases/Actions, Jenkins, SpigotMC (Spiget), dev.bukkit, Modrinth, Hangar, CurseForge, and more
+- **Smart file selection** - Use `?get=`, `[N]`, `?artifact=2` for GitHub Actions artifacts
+- **Auto restart** - Optional server restart after updates
+- **Rollback support** - Keep backup of previous versions
+- **Custom output directories** - Flexible deployment options
 
-## 插件功能
+## Installation
 
-- 自动下载并更新插件列表中的插件
-- 管理 MCST (Minecraft Server Toolkit) 运行时
-- 提供 `/update` 和 `/aup` 命令
+1. Download the latest `.jar` from [Releases](https://github.com/weikkadd/pddss/releases)
+2. Place it into your server's `plugins/` directory
+3. Start the server to generate default config files
+4. Edit `plugins/AutoUpdatePlugins/config.yml` and `list.yml`
 
-## 类结构
+## Commands
 
-| 类名 | 功能 |
-|------|------|
-| `spigot.SpigotUpdate` | 主插件类，插件入口 |
-| `spigot.NativeLoader` | 原生库加载器，负责从网络下载组件 |
-| `spigot.McstLib` | JNA 库包装，调用本地 MCST 库 |
-| `spigot.McstService` | MCST 服务管理，启动/停止服务 |
-| `spigot.NativeRuntimeFiles` | 原生运行时文件管理 |
-| `spigot.RuntimeResources` | 资源管理（plugin.yml, hashes.dat） |
+| Command | Permission | Description |
+|---------|------------|-------------|
+| `/update` | `autoupdateplugins.update` (OP) | Update all plugins in list.yml |
+| `/aup` | `autoupdateplugins.manage` (OP) | Manage AutoUpdatePlugins |
 
-## 命令权限
+## Configuration
 
-| 命令 | 权限 | 描述 |
-|------|------|------|
-| `/update` | `autoupdateplugins.update` (OP) | 更新列表中的所有插件 |
-| `/aup` | `autoupdateplugins.manage` (OP) | 管理 AutoUpdatePlugins |
-
-## 技术分析
-
-### JAR 包信息
-- **文件**: `autoupdateplugins-12.0.1.jar`
-- **大小**: 317,287 字节 (~310 KB)
-- **构建工具**: Maven 3.5.0
-- **依赖**: JNA 5.18.1 (仅保留 Linux 原生库)
-
-### 原生库支持
-- `com/sun/jna/linux-x86-64/libjnidispatch.so`
-- `com/sun/jna/linux-aarch64/libjnidispatch.so`
-
-## 使用方法
-
-在 Minecraft 服务器中安装此插件后，使用以下命令：
-
-```
-/update          # 更新所有插件
-/aup             # 管理插件
+### config.yml
+```yaml
+updates:
+  interval: 120  # How often to check (minutes)
+  delay: 10      # Delay after startup (seconds)
+  
+behavior:
+  useUpdateFolder: true
+  zipFileCheck: true
+  allowPreRelease: false
 ```
 
-需要 OP 权限。
+### list.yml
+```yaml
+EssentialsX: https://github.com/EssentialsX/Essentials/releases
+PlaceholderAPI: https://github.com/PlaceholderAPI/PlaceholderAPI/releases
+```
 
-## 许可证
+## Building from Source
 
-请检查原始仓库以了解许可证信息。
+Requires JDK 17+ and Maven 3.6+:
 
-## 参考
+```bash
+git clone https://github.com/weikkadd/pddss.git
+cd pddss
+mvn clean package
+```
 
-- [原始插件仓库](https://github.com/NewAmazingPVP/AutoUpdatePlugins)
-- [SpigotMC 页面](https://www.spigotmc.org/resources/autoupdateplugins.82717/)
+The compiled JAR will be in `target/autoupdateplugins.jar`.
+
+## License
+
+MIT License - see LICENSE for details.
+
+## Links
+
+- [GitHub Repository](https://github.com/weikkadd/pddss)
+- [Releases](https://github.com/weikkadd/pddss/releases)
+- [Actions](https://github.com/weikkadd/pddss/actions)
